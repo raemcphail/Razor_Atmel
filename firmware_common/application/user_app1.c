@@ -151,13 +151,60 @@ State Machine Function Definitions
 static void UserApp1SM_Idle(void)
 {
   static u16 u16BlinkCount = 0;
+  static u8 u8Counter = 0;
+  
   u16BlinkCount++;
+  u8Counter++;
   
   if(u16BlinkCount==500)
   {
     u16BlinkCount = 0;
     LedToggle(PURPLE);
   }
+  
+  if(u8Counter == 16)
+  {
+    u8Counter = 0;
+  }
+  
+  if(u8Counter & 0x01)
+  {
+    LedOn(RED);
+  }
+  else
+  {
+    LedOff(RED);
+  }
+  
+  if(u8Counter & 0x02)
+  {
+    LedOn(ORANGE);
+  }
+  else
+  {
+    LedOff(ORANGE);
+  }
+  
+  if(u8Counter & 0x04)
+  {
+    LedOn(YELLOW);
+  }
+  else
+  {
+    LedOff(YELLOW);
+  }
+  
+  if(u8Counter & 0x08)
+  {
+    LedOn(GREEN);
+  }
+  else
+  {
+    LedOff(GREEN);
+  }
+  
+  
+  
 } /* end UserApp1SM_Idle() */
     
 
