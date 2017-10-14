@@ -91,12 +91,13 @@ void UserApp1Initialize(void)
   LedOff(GREEN); 
   LedOff(YELLOW); 
   LedOff(ORANGE);
+  LedOff(BLUE);
+  LedOff(PURPLE);
+  LedOff(WHITE);
+  LedOff(RED);
   
-  LedOn(BLUE);
-  LedOn(PURPLE);
-  
-  LedBlink(RED, LED_2HZ);
-  LedPWM(WHITE, LED_PWM_5);
+  //LedBlink(RED, LED_2HZ);
+  //LedPWM(WHITE, LED_PWM_5);
   
   
   
@@ -152,19 +153,73 @@ static void UserApp1SM_Idle(void)
 {
   static u16 u16BlinkCount = 0;
   static u8 u8Counter = 0;
+  static u8 u8ColorIndex = 0;
   
   u16BlinkCount++;
-  u8Counter++;
-  
   if(u16BlinkCount==500)
   {
     u16BlinkCount = 0;
-    LedToggle(PURPLE);
-  }
+    u8Counter++;
   
-  if(u8Counter == 16)
-  {
-    u8Counter = 0;
+    if(u8Counter == 16)
+    {
+      u8Counter = 0; 
+      u8ColorIndex++;
+      if(u8ColorIndex == 7)
+      {
+        u8ColorIndex = 0;
+      }
+      switch(u8ColorIndex)
+      {
+        case 0:
+          LedOn(LCD_RED);
+          LedOn(LCD_BLUE);
+          LedOn(LCD_GREEN);
+          break;
+          
+        case 1:
+          LedOn(LCD_RED);
+          LedOn(LCD_BLUE);
+          LedOff(LCD_GREEN);
+          break;
+          
+         case 2:
+          LedOff(LCD_RED);
+          LedOn(LCD_BLUE);
+          LedOff(LCD_GREEN);
+          break;
+          
+         case 3:
+          LedOff(LCD_RED);
+          LedOn(LCD_BLUE);
+          LedOn(LCD_GREEN);
+          break;
+          
+         case 4:
+          LedOff(LCD_RED);
+          LedOff(LCD_BLUE);
+          LedOn(LCD_GREEN);
+          break;
+          
+         case 5:
+          LedOn(LCD_RED);
+          LedOff(LCD_BLUE);
+          LedOn(LCD_GREEN);
+          break;
+          
+         case 6:
+          LedOn(LCD_RED);
+          LedOff(LCD_BLUE);
+          LedOff(LCD_GREEN);
+          break;
+          
+         default:
+          LedOff(LCD_RED);
+          LedOff(LCD_BLUE);
+          LedOff(LCD_GREEN);
+          break;
+      }
+    }
   }
   
   if(u8Counter & 0x01)
@@ -203,6 +258,42 @@ static void UserApp1SM_Idle(void)
     LedOff(GREEN);
   }
   
+   if(u8Counter & 0x10)
+  {
+    LedOn(CYAN);
+  }
+  else
+  {
+    LedOff(CYAN);
+  }
+  
+   if(u8Counter & 0x20)
+  {
+    LedOn(BLUE);
+  }
+  else
+  {
+    LedOff(BLUE);
+  }
+  
+  if(u8Counter & 0x40)
+  {
+    LedOn(PURPLE);
+  }
+  else
+  {
+    LedOff(PURPLE);
+  }
+  
+   if(u8Counter & 0x80)
+  {
+    LedOn(WHITE);
+  }
+  else
+  {
+    LedOff(WHITE);
+  }
+ 
   
   
 } /* end UserApp1SM_Idle() */
