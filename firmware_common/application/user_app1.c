@@ -156,7 +156,7 @@ static void UserApp1SM_Idle(void)
   static u8 u8ColorIndex = 0;
   static u8 u8FadeCount = 0;
   static bool bIncreasing = TRUE;
-  static LedRateType eCurrentRate = LED_PWM_5;
+  static LedRateType eCurrentRate = LED_PWM_0;
   
   u16BlinkCount++;
   u8FadeCount++;
@@ -172,7 +172,7 @@ static void UserApp1SM_Idle(void)
   {
     bIncreasing = FALSE;
   }
-   if(eCurrentRate==LED_PWM_5)
+   if(eCurrentRate==LED_PWM_0)
   {
     bIncreasing = TRUE;
   }
@@ -188,7 +188,7 @@ static void UserApp1SM_Idle(void)
   }
   
   
-  if(u16BlinkCount==500)
+ /* if(u16BlinkCount==500)
   {
     u16BlinkCount = 0;
     u8Counter++;
@@ -324,7 +324,7 @@ static void UserApp1SM_Idle(void)
   else
   {
     LedOff(WHITE);
-  }
+  }*/
 } /* end UserApp1SM_Idle() */
     
 
