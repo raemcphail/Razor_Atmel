@@ -154,14 +154,267 @@ static void UserApp1SM_Idle(void)
   static u16 u16BlinkCount = 0;
   static u8 u8Counter = 0;
   static u8 u8ColorIndex = 0;
-  static u8 u8FadeCount = 0;
+  
   static bool bIncreasing = TRUE;
   static LedRateType eCurrentRate = LED_PWM_0;
   
-  u16BlinkCount++;
-  u8FadeCount++;
+ // u16BlinkCount++;
+ 
+    
+ //Now I'm making my own Led Design
+  static u32 u32FadeCount = 0;
   
-  if(u8FadeCount==40)
+  
+  static LedRateType eCurrentRateRed = LED_PWM_0;
+  static LedRateType eCurrentRateOrange = LED_PWM_0;
+  static LedRateType eCurrentRateYellow = LED_PWM_0;
+  static LedRateType eCurrentRateGreen = LED_PWM_0;
+  static LedRateType eCurrentRateCyan = LED_PWM_0;
+  static LedRateType eCurrentRateBlue = LED_PWM_0;
+  static LedRateType eCurrentRatePurple = LED_PWM_0;
+  static LedRateType eCurrentRateWhite = LED_PWM_0;
+  
+  static bool bIncreasingRed = TRUE;
+  static bool bIncreasingOrange = TRUE;
+  static bool bIncreasingYellow = TRUE;
+  static bool bIncreasingGreen = TRUE;
+  static bool bIncreasingCyan = TRUE;
+  static bool bIncreasingBlue = TRUE;
+  static bool bIncreasingPurple = TRUE;
+  static bool bIncreasingWhite = TRUE;
+  
+  
+  static u32 u32r = 20;
+  static u32 u32o = 40;
+  static u32 u32y = 60;
+  static u32 u32g = 80;
+  static u32 u32c = 100;
+  static u32 u32b = 120;
+  static u32 u32p = 140;
+  static u32 u32w = 160;
+  
+  u32FadeCount++;
+  
+  //Red
+  if(u32FadeCount == u32r)
+  {
+    u32r+=20;
+    
+  LedPWM(RED, eCurrentRateRed);
+  
+  if(eCurrentRateRed==LED_PWM_100)
+  {
+    bIncreasingRed = FALSE;
+  }
+   if(eCurrentRateRed==LED_PWM_0)
+  {
+    bIncreasingRed = TRUE;
+  }
+  if(bIncreasingRed)
+  {
+    eCurrentRateRed++;
+  }
+  else
+  {
+    eCurrentRateRed--;
+  }
+    
+  }
+  
+  //Orange
+  if(u32FadeCount == u32o)
+  {
+    u32o+=40;
+    
+  LedPWM(ORANGE, eCurrentRateOrange);
+  
+  if(eCurrentRateOrange==LED_PWM_100)
+  {
+    bIncreasingOrange = FALSE;
+  }
+   if(eCurrentRateOrange==LED_PWM_0)
+  {
+    bIncreasingOrange = TRUE;
+  }
+  if(bIncreasingOrange)
+  {
+    eCurrentRateOrange++;
+  }
+  else
+  {
+    eCurrentRateOrange--;
+  }
+    
+  }
+  
+  //Yellow
+  if(u32FadeCount == u32y)
+  {
+    u32y+=60;
+    
+  LedPWM(YELLOW, eCurrentRateYellow);
+  
+  if(eCurrentRateYellow==LED_PWM_100)
+  {
+    bIncreasingYellow = FALSE;
+  }
+  if(eCurrentRateYellow==LED_PWM_0)
+  {
+    bIncreasingYellow = TRUE;
+  }
+  if(bIncreasingYellow)
+  {
+    eCurrentRateYellow++;
+  }
+  else
+  {
+    eCurrentRateYellow--;
+  }
+    
+  }
+  
+  
+  //Green
+  if(u32FadeCount == u32g)
+  {
+    u32g+=80;
+    
+  LedPWM(GREEN, eCurrentRateGreen);
+  
+  if(eCurrentRateGreen==LED_PWM_100)
+  {
+    bIncreasingGreen = FALSE;
+  }
+  if(eCurrentRateGreen==LED_PWM_0)
+  {
+    bIncreasingGreen = TRUE;
+  }
+  if(bIncreasingGreen)
+  {
+    eCurrentRateGreen++;
+  }
+  else
+  {
+    eCurrentRateGreen--;
+  }
+  
+  }
+  
+  //Cyan
+  if(u32FadeCount == u32c)
+  {
+    u32c+=100;
+    
+  LedPWM(CYAN, eCurrentRateCyan);
+  
+  if(eCurrentRateCyan==LED_PWM_100)
+  {
+    bIncreasingCyan = FALSE;
+  }
+  if(eCurrentRateCyan==LED_PWM_0)
+  {
+    bIncreasingCyan = TRUE;
+  }
+  if(bIncreasingCyan)
+  {
+    eCurrentRateCyan++;
+  }
+  else
+  {
+    eCurrentRateCyan--;
+  }
+  
+  }
+  
+  //Blue
+  if(u32FadeCount == u32b)
+  {
+    u32b+=120;
+    
+  LedPWM(BLUE, eCurrentRateBlue);
+  
+  if(eCurrentRateBlue==LED_PWM_100)
+  {
+    bIncreasingBlue = FALSE;
+  }
+  if(eCurrentRateBlue==LED_PWM_0)
+  {
+    bIncreasingBlue = TRUE;
+  }
+  if(bIncreasingBlue)
+  {
+    eCurrentRateBlue++;
+  }
+  else
+  {
+    eCurrentRateBlue--;
+  }
+  
+  }
+  
+  //Purple
+  if(u32FadeCount == u32p)
+  {
+    u32p+=140;
+    
+  LedPWM(PURPLE, eCurrentRatePurple);
+  
+  if(eCurrentRatePurple==LED_PWM_100)
+  {
+    bIncreasingPurple = FALSE;
+  }
+  if(eCurrentRatePurple==LED_PWM_0)
+  {
+    bIncreasingPurple = TRUE;
+  }
+  if(bIncreasingPurple)
+  {
+    eCurrentRatePurple++;
+  }
+  else
+  {
+    eCurrentRatePurple--;
+  }
+  
+  }
+  
+    //White
+  if(u32FadeCount == u32w)
+  {
+    u32w+=160;
+    
+  LedPWM(WHITE, eCurrentRateWhite);
+  
+  if(eCurrentRateWhite==LED_PWM_100)
+  {
+    bIncreasingWhite = FALSE;
+  }
+  if(eCurrentRateWhite==LED_PWM_0)
+  {
+    bIncreasingWhite = TRUE;
+  }
+  if(bIncreasingWhite)
+  {
+    eCurrentRateWhite++;
+  }
+  else
+  {
+    eCurrentRateWhite--;
+  }
+  
+  }
+  
+  
+  /*if(u8FadeCount == 160)
+  {
+    u8FadeCount = 0;
+  } */ 
+   
+
+
+  
+  
+  /*if(u8FadeCount==40)
   {
     u8FadeCount = 0;
 
@@ -185,7 +438,7 @@ static void UserApp1SM_Idle(void)
     eCurrentRate--;
   }
   
-  }
+  }*/
   
   
  /* if(u16BlinkCount==500)
