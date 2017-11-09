@@ -41,7 +41,9 @@ Global variable definitions with scope across entire project.
 All Global variable names shall start with "G_UserApp1"
 ***********************************************************************************************************************/
 /* New variables */
-volatile u32 G_u32UserApp1Flags;                       /* Global state flags */
+volatile u32 G_u32UserApp1Flags; 
+bool bYellowBlink = FALSE;
+                     /* Global state flags */
 
 
 /*--------------------------------------------------------------------------------------------------------------------*/
@@ -87,6 +89,14 @@ Promises:
 */
 void UserApp1Initialize(void)
 {
+  LedOff(WHITE);
+  LedOff(PURPLE);
+  LedOff(BLUE);
+  LedOff(CYAN);
+  LedOff(GREEN);
+  LedOff(YELLOW);
+  LedOff(ORANGE);
+  LedOff(RED);
  
   /* If good initialization, set state to Idle */
   if( 1 )
@@ -148,8 +158,56 @@ static void UserApp1SM_Idle(void)
   {
      u32WasCounter++;
     ButtonAcknowledge(BUTTON0);
-   
   }
+  
+  if(WasButtonPressed(BUTTON1))
+  {
+    ButtonAcknowledge(BUTTON1);
+    
+    if(bYellowBlink)
+    {
+      bYellowBlink = FALSE;
+      LedOff(YELLOW);
+    }
+    else
+    {
+      bYellowBlink = TRUE;
+      LedBlink(YELLOW, LED_1HZ);
+    }
+  }
+  
+  if(IsButtonHeld(BUTTON3, 2000))
+  {
+    LedOn(CYAN);
+  }
+  else 
+  {
+    LedOff(CYAN);
+  }
+  if(IsButtonPressed(BUTTON1))
+  {
+    ButtonAcknowledge(BUTTON1);
+    LedOn(PURPLE);
+  }
+  else
+  {
+    LedOff(PURPLE);
+  }
+  
+    if(IsButtonPressed(BUTTON2))
+  {
+    ButtonAcknowledge(BUTTON2);
+    LedOn(BLUE);
+  }
+  else
+  {
+   
+    LedOff(BLUE);
+  }
+
+  
+  
+
 
 } /* end UserApp1SM_Idle() */
     
