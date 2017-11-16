@@ -43,6 +43,9 @@ All Global variable names shall start with "G_UserApp1"
 /* New variables */
 volatile u32 G_u32UserApp1Flags; 
 bool bYellowBlink = FALSE;
+static LedRateType aeBlinkRate [] ={LED_1HZ, LED_2HZ, LED_4HZ, LED_8HZ};
+static u8 u8BlinkRateIndex = 0;
+static bool bLedBlink = FALSE;
                      /* Global state flags */
 
 
@@ -146,6 +149,7 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
+  
   static u32 u32IsCounter = 0;
   static u32 u32WasCounter = 0;
   
@@ -162,7 +166,7 @@ static void UserApp1SM_Idle(void)
   
   if(WasButtonPressed(BUTTON1))
   {
-    ButtonAcknowledge(BUTTON1);
+   // ButtonAcknowledge(BUTTON1);
     
     if(bYellowBlink)
     {
@@ -172,7 +176,7 @@ static void UserApp1SM_Idle(void)
     else
     {
       bYellowBlink = TRUE;
-      LedBlink(YELLOW, LED_1HZ);
+      LedBlink(YELLOW, aeBlinkRate[u8BlinkRateIndex]);
     }
   }
   
@@ -186,7 +190,7 @@ static void UserApp1SM_Idle(void)
   }
   if(IsButtonPressed(BUTTON1))
   {
-    ButtonAcknowledge(BUTTON1);
+    //ButtonAcknowledge(BUTTON1);
     LedOn(PURPLE);
   }
   else
@@ -194,19 +198,50 @@ static void UserApp1SM_Idle(void)
     LedOff(PURPLE);
   }
   
-    if(IsButtonPressed(BUTTON2))
+  if(WasButtonPressed(BUTTON2))
   {
-    ButtonAcknowledge(BUTTON2);
+    //ButtonAcknowledge(BUTTON2);
     LedOn(BLUE);
+ 
   }
   else
   {
    
     LedOff(BLUE);
   }
+  
+  if(WasButtonPressed(BUTTON1))
+  {
+    ButtonAcknowledge(BUTTON1);
+    
+    if(bLedBlink)
+    {
+      bLedBlink = FALSE;
+      LedOff(YELLOW);
+    }
+    else
+    {
+      bLedBlink = TRUE;
+      LedBlink(YELLOW, aeBlinkRate[u8BlinkRateIndex]);
+      
+    }
+  }
 
+if(WasButtonPressed(BUTTON2))
+{
+  ButtonAcknowledge(BUTTON2);
   
-  
+  if(bLedBlink)
+  {
+    u8BlinkRateIndex++;
+    if(u8BlinkRateIndex == 4)
+    {
+      u8BlinkRateIndex = 0;
+    }
+    
+    LedBlink(YELLOW, aeBlinkRate[u8BlinkRateIndex]);
+  }
+}
 
 
 } /* end UserApp1SM_Idle() */
