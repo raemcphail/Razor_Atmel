@@ -58,6 +58,8 @@ Global variable definitions with scope limited to this local application.
 Variable names shall start with "UserApp1_" and be declared as static.
 ***********************************************************************************************************************/
 static fnCode_type UserApp1_StateMachine;            /* The state machine function pointer */
+static u32 u32UserApp1_Counter =0;
+static bool bUserApp1_CounterOn =TRUE;
 //static u32 UserApp1_u32Timeout;                      /* Timeout counter used across states */
 
 
@@ -150,7 +152,15 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
-
+  u32 static counter;
+  for( counter =0; counter<5000; counter++)
+  {
+    
+  }
+  /*For(counter = 0;counter<1000;counter++)
+  {
+    
+  }*/
 } /* end UserApp1SM_Idle() */
     
 
