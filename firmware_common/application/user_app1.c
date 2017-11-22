@@ -163,7 +163,39 @@ static void UserApp1SM_Idle(void)
 {
   static u8 u8NumCharsMessage[] = "\n\rCharacters in buffer: ";
   static u8 au8BufferMessage[] = "\n\rBuffer contents: \n\r";
+  static u8 au8EmptyMessage[] = "\n\rThe buffer is empty\n\r";
+  
   u8 u8CharCount;  
+  //The name part of the assignment
+    static u8 au8NameCountMessage[] = "\n\rNumber of times my name was printed: ";
+  static u8 au8MyName[] = "\n\rrae";
+  static u8 u8NameCount = 0;
+  
+  for(int i=0; i<u8CharCount; i++)
+  {
+    if(au8MyName[i] == UserApp_au8UserInputBuffer[i])
+    {
+      if(au8MyName[i+1] == UserApp_au8UserInputBuffer[i+1])
+      {
+        if(au8MyName[i+2] == UserApp_au8UserInputBuffer[i+2])
+        {
+          u8NameCount++;
+          i = i+2;
+        }
+        else
+        {
+         i = i+2;
+        }
+      }
+      else
+      {
+       i = i+1;
+      }
+    }
+  }
+           
+           //That was the name part of the assignment
+  
   if(WasButtonPressed(BUTTON0))
     {
       ButtonAcknowledge(BUTTON0);
@@ -173,15 +205,56 @@ static void UserApp1SM_Idle(void)
       DebugLineFeed();
     }
     
-     if(WasButtonPressed(BUTTON1))
+    if(WasButtonPressed(BUTTON1))
     {
       ButtonAcknowledge(BUTTON1);
       
       u8CharCount = DebugScanf(UserApp_au8UserInputBuffer);
+     
+      if(u8CharCount>0)
+      {
       UserApp_au8UserInputBuffer[u8CharCount] = '\0';
       DebugPrintf(au8BufferMessage);
       DebugPrintf(UserApp_au8UserInputBuffer);
+      DebugPrintf(au8NameCountMessage);
+      DebugPrintNumber(u8NameCount);
+      }
+      else
+      {
+        DebugPrintf(au8EmptyMessage);
+      }
+     
+   }
+  
+  //The name part of the assignment
+ /* static u8 au8NameCountMessage[] = "\n\rNumber of times my name was printed: ";
+  static u8 au8MyName[] = "\n\rrae";
+  static u8 u8NameCount = 0;
+  
+  for(int i=0; i<u8CharCount; i++)
+  {
+    if(au8MyName[i] == UserApp_au8UserInputBuffer[i])
+    {
+      if(au8MyName[i+1] == UserApp_au8UserInputBuffer[i+1])
+      {
+        if(au8MyName[i+2] == UserApp_au8UserInputBuffer[i+2]
+        {
+          u8NameCount++;
+          i = i+2;
+        }
+        else
+        {
+         i = i+2;
+        }
+      }
+      else
+      {
+       i = i+1;
+      }
     }
+  }*/
+
+  
     
    
 } /* end UserApp1SM_Idle() */
