@@ -51,8 +51,11 @@ extern volatile u32 G_u32ApplicationFlags;             /* From main.c */
 
 extern volatile u32 G_u32SystemTime1ms;                /* From board-specific source file */
 extern volatile u32 G_u32SystemTime1s;                 /* From board-specific source file */
+extern u8 G_au8DebugScanfBuffer[];
+extern u8 G_u8DebugScanfCharCount;
 
-
+static u32 UserApp1_au32Notes[] = {C3, C3S, D3, D3S, E3, F3, F3S, G3, G3S, A3, A3S, B3};
+static u8 UserApp1_au8InputBuffer[U16_USER_INPUT_BUFFER_SIZE];
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
 Variable names shall start with "UserApp1_" and be declared as static.
@@ -138,14 +141,53 @@ State Machine Function Definitions
 /* Wait for ??? */
 static void UserApp1SM_Idle(void)
 {
-  if(IsButtonPressed(BUTTON0))
+  
+  
+  /*if(WasButtonPressed(BUTTON0))
   {
-    PWMAudioOn(BUZZER1);
+    ButtonAcknowledge(BUTTON0);
+    PWMAudioSetFrequency(BUZZER1,C3);
   }
-  else
+  
+  if(WasButtonPressed(BUTTON1))
+  {
+    ButtonAcknowledge(BUTTON1);
+    PWMAudioSetFrequency(BUZZER1,284);
+  }
+  
+  if(WasButtonPressed(BUTTON2))
+  {
+    ButtonAcknowledge(BUTTON2);
+    PWMAudioSetFrequency(BUZZER1,330);
+  }
+  
+   if(WasButtonPressed(BUTTON3))
+  {
+    ButtonAcknowledge(BUTTON3);
+    PWMAudioSetFrequency(BUZZER1,392);
+  }
+  if(IsButtonPressed(BUTTON0)||IsButtonPressed(BUTTON1)||IsButtonPressed(BUTTON2)|| IsButtonPressed(BUTTON3))
+ {
+  PWMAudioOn(BUZZER1);
+ }
+ else
   {
     PWMAudioOff(BUZZER1);
+  }*/
+  
+ u8 u8Store;
+  u8Store = u8DebugScanf(UserApp1_au8InputBuffer);
+  if(UserApp1_au8InputBuffer[0]=='q')
+  {
+     PWMAudioSetFrequency(BUZZER1,UserApp1_au32Notes[0]);
+     PWMAudioOn(BUZZER1); 
   }
+  
+  if(UserApp1_au8InputBuffer[0]=='z')
+  {
+     PWMAudioOff(BUZZER1); 
+  }
+  
 
 } /* end UserApp1SM_Idle() */
     
