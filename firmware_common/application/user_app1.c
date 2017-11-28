@@ -54,8 +54,11 @@ extern volatile u32 G_u32SystemTime1s;                 /* From board-specific so
 extern u8 G_au8DebugScanfBuffer[];
 extern u8 G_u8DebugScanfCharCount;
 
+
 static u32 UserApp1_au32Notes[] = {C3, C3S, D3, D3S, E3, F3, F3S, G3, G3S, A3, A3S, B3};
 static u8 Index = 0;
+static u32 UserApp1_au32JingleBellsNotes[] = {D3, B3, G3, A3, E3, F3, C3};
+
 static u8 UserApp1_au8InputBuffer[U16_USER_INPUT_BUFFER_SIZE];
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -177,7 +180,7 @@ static void UserApp1SM_Idle(void)
   }*/
   
 
-  DebugScanf(UserApp1_au8InputBuffer);
+  /*DebugScanf(UserApp1_au8InputBuffer);
   if(UserApp1_au8InputBuffer[0]=='q')
   {
     Index = 0;
@@ -241,15 +244,46 @@ static void UserApp1SM_Idle(void)
   else
   {
     PWMAudioOff(BUZZER1);
-  }
+  }*/
   
-  
-  
-   
-  
-  if(UserApp1_au8InputBuffer[0]=='z')
+  DebugScanf(UserApp1_au8InputBuffer);
+  if(UserApp1_au8InputBuffer[0]=='d')
   {
-     PWMAudioOff(BUZZER1); 
+    Index = 0;
+  }
+  if(UserApp1_au8InputBuffer[0]=='b')
+  {
+    Index = 1;
+  }
+  if(UserApp1_au8InputBuffer[0]=='g')
+  {
+    Index = 2;
+  }
+  if(UserApp1_au8InputBuffer[0]=='a')
+  {
+    Index = 3;
+  }
+  if(UserApp1_au8InputBuffer[0]=='e')
+  {
+    Index = 4;
+  }
+  if(UserApp1_au8InputBuffer[0]=='f')
+  {
+    Index = 5;
+  }
+  if(UserApp1_au8InputBuffer[0]=='c')
+  {
+    Index = 5;
+  }
+   
+   if(UserApp1_au8InputBuffer[0]=='d'||UserApp1_au8InputBuffer[0]=='b'||UserApp1_au8InputBuffer[0]=='g'||UserApp1_au8InputBuffer[0]=='a'||UserApp1_au8InputBuffer[0]=='e'||UserApp1_au8InputBuffer[0]=='f'||UserApp1_au8InputBuffer[0]=='c')
+  {
+     PWMAudioSetFrequency(BUZZER1,UserApp1_au32JingleBellsNotes[Index]);
+     PWMAudioOn(BUZZER1);
+  }
+  else
+  {
+    PWMAudioOff(BUZZER1);
   }
   
 
