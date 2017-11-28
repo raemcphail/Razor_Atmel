@@ -55,6 +55,7 @@ extern u8 G_au8DebugScanfBuffer[];
 extern u8 G_u8DebugScanfCharCount;
 
 static u32 UserApp1_au32Notes[] = {C3, C3S, D3, D3S, E3, F3, F3S, G3, G3S, A3, A3S, B3};
+static u8 Index = 0;
 static u8 UserApp1_au8InputBuffer[U16_USER_INPUT_BUFFER_SIZE];
 /***********************************************************************************************************************
 Global variable definitions with scope limited to this local application.
@@ -175,13 +176,76 @@ static void UserApp1SM_Idle(void)
     PWMAudioOff(BUZZER1);
   }*/
   
- u8 u8Store;
-  u8Store = u8DebugScanf(UserApp1_au8InputBuffer);
+
+  DebugScanf(UserApp1_au8InputBuffer);
   if(UserApp1_au8InputBuffer[0]=='q')
   {
-     PWMAudioSetFrequency(BUZZER1,UserApp1_au32Notes[0]);
-     PWMAudioOn(BUZZER1); 
+    Index = 0;
   }
+  
+  if(UserApp1_au8InputBuffer[0]=='w')
+  {
+    Index = 1;
+  }
+  
+    if(UserApp1_au8InputBuffer[0]=='e')
+  {
+    Index = 2;
+  }
+    if(UserApp1_au8InputBuffer[0]=='r')
+  {
+    Index = 3;
+  }
+    if(UserApp1_au8InputBuffer[0]=='t')
+  {
+    Index = 4;
+  }
+    if(UserApp1_au8InputBuffer[0]=='y')
+  {
+    Index = 5;
+  }
+  
+    if(UserApp1_au8InputBuffer[0]=='u')
+  {
+    Index = 6;
+  }
+  
+    if(UserApp1_au8InputBuffer[0]=='i')
+  {
+    Index = 7;
+  }
+  
+    if(UserApp1_au8InputBuffer[0]=='o')
+  {
+    Index = 8;
+  }
+  
+    if(UserApp1_au8InputBuffer[0]=='p')
+  {
+    Index = 9;
+  }
+  if(UserApp1_au8InputBuffer[0]=='[')
+  {
+    Index = 10;
+  }
+  if(UserApp1_au8InputBuffer[0]==']')
+  {
+    Index = 11;
+  }
+  
+  if(UserApp1_au8InputBuffer[0]=='q'||UserApp1_au8InputBuffer[0]=='w'||UserApp1_au8InputBuffer[0]=='e'||UserApp1_au8InputBuffer[0]=='r'||UserApp1_au8InputBuffer[0]=='t'||UserApp1_au8InputBuffer[0]=='y'||UserApp1_au8InputBuffer[0]=='u'||UserApp1_au8InputBuffer[0]=='i'||UserApp1_au8InputBuffer[0]=='o'||UserApp1_au8InputBuffer[0]=='p'||UserApp1_au8InputBuffer[0]=='['||UserApp1_au8InputBuffer[0]==']')
+  {
+     PWMAudioSetFrequency(BUZZER1,UserApp1_au32Notes[Index]);
+     PWMAudioOn(BUZZER1);
+  }
+  else
+  {
+    PWMAudioOff(BUZZER1);
+  }
+  
+  
+  
+   
   
   if(UserApp1_au8InputBuffer[0]=='z')
   {
